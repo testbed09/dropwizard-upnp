@@ -35,6 +35,7 @@ import java.util.Map;
 
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
 
+    /*
     public String test1;
     public String test2;
     public String test3;
@@ -43,7 +44,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
     public String test6;
     public String test7;
     public String test8;
-
+    */
     public static void main(String[] args) throws Exception {
         new HelloWorldApplication().run(args);
     }
