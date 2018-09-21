@@ -23,6 +23,51 @@
         <sonar.projectKey>${project.artifactId}</sonar.projectKey>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>development-install</id>
+            <!--  Configuration for Dev Nexus. Used if "install" goal is activated -->
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <skipUpload>false</skipUpload>
+                <nexusHost>ec2-54-93-56-29.eu-central-1.compute.amazonaws.com</nexusHost>
+                <httpSchema>http</httpSchema>
+                <nexusPort>9080</nexusPort>
+                <nexusUser>admin</nexusUser>
+                <nexusPassword></nexusPassword>
+                <nexusRepository>Xidra_Staging</nexusRepository>
+            </properties>
+        </profile>
+        <profile>
+            <id>release-install</id>
+            <properties>
+                <skipUpload>false</skipUpload>
+                <nexusHost>ec2-54-93-56-29.eu-central-1.compute.amazonaws.com</nexusHost>
+                <httpSchema>http</httpSchema>
+                <nexusPort>9080</nexusPort>
+                <nexusUser>admin</nexusUser>
+                <nexusPassword></nexusPassword>
+                <nexusRepository>Xidra_Release</nexusRepository>
+            </properties>
+        </profile>
+        <profile>
+            <id>workstation-no-upload</id>
+            <properties>
+                <skipUpload>true</skipUpload>
+                <nexusHost>none</nexusHost>
+                <httpSchema>http</httpSchema>
+                <nexusPort>0</nexusPort>
+                <nexusUser>none</nexusUser>
+                <keyPass>none</keyPass>
+                <httpsCertificateLocation>none</httpsCertificateLocation>
+                <nexusPassword>none</nexusPassword>
+                <nexusRepository>none</nexusRepository>
+            </properties>
+        </profile>
+    </profiles>
+
     <!--repositories>
         <repository>
             <id>sonatype-nexus-snapshots</id>
@@ -278,6 +323,19 @@
                     </execution>
                 </executions>
             </plugin-->
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <configuration>
+                    <verbose>true</verbose>
+                    <gitDescribe>
+                        <tags>true</tags>
+                        <always>true</always>
+                        <abbrev>7</abbrev>
+                        <forceLongFormat>true</forceLongFormat>
+                    </gitDescribe>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
